@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Maker - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Home Page -->
+    <div class="home-page" id="homePage">
+        <div class="home-container">
+            <div class="home-content">
+                <div class="home-icon">🎨</div>
+                <h1 class="home-title">AI Image Maker</h1>
+                <p class="home-subtitle">
+                    Transform your imagination into stunning images with the power of AI. 
+                    Create beautiful, unique artwork from simple text descriptions.
+                </p>
+                <button class="build-button" onclick="showGenerator()">
+                    ✨ Build an Image
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generator Page -->
+    <div class="generator-page" id="generatorPage">
+        <div class="header">
+            <div class="header-content">
+                <h1>🎨 AI Image Generator</h1>
+                <button class="back-button" onclick="showHome()">← Back to Home</button>
+            </div>
+        </div>
+
+        <div class="generator-container">
+            <div class="generator-card">
+                <h2 class="form-title">Create Your Image</h2>
+
+                <form id="generatorForm">
+                    <!-- Image Description -->
+                    <div class="form-group">
+                        <label for="imageDescription">Image Description *</label>
+                        <textarea 
+                            id="imageDescription" 
+                            rows="5" 
+                            placeholder="Describe the image you want to create... (e.g., 'A beautiful sunset over mountains with purple sky and birds flying')"
+                            required
+                        ></textarea>
+                    </div>
+
+
+              <!-- Negative Prompt -->
+                    <div class="form-group">
+                        <label for="negativePrompt">
+                            Negative Prompt (Optional)
+                            <span style="color: #999; font-size: 13px; font-weight: normal;">
+                                - What to avoid
+                            </span>
+                        </label>
+                        <textarea 
+                            id="negativePrompt" 
+                            rows="2" 
+                            placeholder="e.g., blurry, low quality, distorted, ugly, bad hands (leave empty for defaults)"
+                        ></textarea>
+                    </div>        
+
+                    <!-- Image Size -->
+                    <div class="form-group">
+                        <label for="imageSize">Image Size *</label>
+                        <select id="imageSize" required>
+                            <option value="512x512" selected>512 x 512 (Standard)</option>
+                            <option value="768x768">768 x 768 (Large)</option>
+                            <option value="512x768">512 x 768 (Portrait)</option>
+                            <option value="768x512">768 x 512 (Landscape)</option>
+                        </select>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <button type="submit" class="generate-button" id="generateBtn">
+                        🎨 Generate Image
+                    </button>
+                </form>
+
+                <!-- Loading Indicator -->
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p class="loader-text">
+                        Generating your image... This may take a moment
+                    </p>
+                </div>
+
+                <!-- Status Message -->
+                <div class="status-message hidden" id="statusMessage"></div>
+
+                <!-- Image Result -->
+                <div class="image-result" id="imageResult">
+                    <img id="generatedImage" class="generated-image" alt="Generated Image">
+                    
+                    <div class="action-buttons">
+                        <button class="action-button refresh-button" onclick="regenerateImage()">
+                            🔄 Regenerate
+                        </button>
+                        <button class="action-button delete-button" onclick="deleteImage()">
+                            🗑️ Delete
+                        </button>
+                        <button class="action-button save-button" onclick="saveImage()">
+                            💾 Save to Desktop
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
