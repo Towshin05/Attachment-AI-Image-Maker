@@ -15,7 +15,7 @@
                 <h1 class="home-title">AI Image Maker</h1>
                 <p class="home-subtitle">
                     Transform your imagination into stunning images with the power of AI. 
-                    Create beautiful, unique artwork from simple text descriptions.
+                    Create beautiful, unique artwork from simple text descriptions or upload PDF scripts.
                 </p>
                 <button class="build-button" onclick="showGenerator()">
                     ✨ Build an Image
@@ -37,7 +37,18 @@
             <div class="generator-card">
                 <h2 class="form-title">Create Your Image</h2>
 
-                <form id="generatorForm">
+                <!-- Input Method Toggle -->
+                <div class="input-method-toggle">
+                    <button class="toggle-btn active" id="textModeBtn" onclick="switchInputMode('text')">
+                        📝 Type Description
+                    </button>
+                    <button class="toggle-btn" id="pdfModeBtn" onclick="switchInputMode('pdf')">
+                        📄 Upload PDF Script
+                    </button>
+                </div>
+
+                <!-- Text Input Mode -->
+                <form id="generatorForm" class="input-mode active">
                     <!-- Image Description -->
                     <div class="form-group">
                         <label for="imageDescription">Image Description *</label>
@@ -49,8 +60,7 @@
                         ></textarea>
                     </div>
 
-
-              <!-- Negative Prompt -->
+                    <!-- Negative Prompt -->
                     <div class="form-group">
                         <label for="negativePrompt">
                             Negative Prompt (Optional)
@@ -63,7 +73,7 @@
                             rows="2" 
                             placeholder="e.g., blurry, low quality, distorted, ugly, bad hands (leave empty for defaults)"
                         ></textarea>
-                    </div>        
+                    </div>
 
                     <!-- Image Size -->
                     <div class="form-group">
@@ -79,6 +89,59 @@
                     <!-- Generate Button -->
                     <button type="submit" class="generate-button" id="generateBtn">
                         🎨 Generate Image
+                    </button>
+                </form>
+
+                <!-- PDF Upload Mode -->
+                <form id="pdfUploadForm" class="input-mode">
+                    <!-- PDF File Upload -->
+                    <div class="form-group">
+                        <label for="pdfFile">Upload PDF Script *</label>
+                        <div class="file-upload-wrapper">
+                            <input 
+                                type="file" 
+                                id="pdfFile" 
+                                accept=".pdf" 
+                                required
+                                onchange="handleFileSelect(event)"
+                            >
+                            <div class="file-upload-display" id="fileDisplay">
+                                <span class="file-icon">📄</span>
+                                <span class="file-text">Choose a PDF file or drag & drop</span>
+                            </div>
+                        </div>
+                        <small class="help-text">Upload a PDF containing the image description. Text will be extracted automatically.</small>
+                    </div>
+
+                    <!-- Negative Prompt for PDF -->
+                    <div class="form-group">
+                        <label for="pdfNegativePrompt">
+                            Negative Prompt (Optional)
+                            <span style="color: #999; font-size: 13px; font-weight: normal;">
+                                - What to avoid
+                            </span>
+                        </label>
+                        <textarea 
+                            id="pdfNegativePrompt" 
+                            rows="2" 
+                            placeholder="e.g., blurry, low quality, distorted, ugly, bad hands"
+                        ></textarea>
+                    </div>
+
+                    <!-- Image Size for PDF -->
+                    <div class="form-group">
+                        <label for="pdfImageSize">Image Size *</label>
+                        <select id="pdfImageSize" required>
+                            <option value="512x512" selected>512 x 512 (Standard)</option>
+                            <option value="768x768">768 x 768 (Large)</option>
+                            <option value="512x768">512 x 768 (Portrait)</option>
+                            <option value="768x512">768 x 512 (Landscape)</option>
+                        </select>
+                    </div>
+
+                    <!-- Generate Button for PDF -->
+                    <button type="submit" class="generate-button" id="generatePdfBtn">
+                        🎨 Generate from PDF
                     </button>
                 </form>
 
@@ -99,13 +162,13 @@
                     
                     <div class="action-buttons">
                         <button class="action-button refresh-button" onclick="regenerateImage()">
-                            🔄 Regenerate
+                            Regenerate
                         </button>
                         <button class="action-button delete-button" onclick="deleteImage()">
-                            🗑️ Delete
+                            Delete
                         </button>
                         <button class="action-button save-button" onclick="saveImage()">
-                            💾 Save to Desktop
+                            Save to Desktop
                         </button>
                     </div>
                 </div>
